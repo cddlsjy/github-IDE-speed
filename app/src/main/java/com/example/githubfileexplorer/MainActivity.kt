@@ -58,19 +58,19 @@ fun AppNavigation(tokenManager: TokenManager) {
             ReposScreen(
                 token = token!!,
                 onRepoClick = { owner, repo ->
-                    navController.navigate("fileTree/$owner/$repo/")
+                    // 使用 Query 参数，不再使用 /{*path}
+                    navController.navigate("fileTree?owner=$owner&repo=$repo&path=")
                 }
             )
         }
         composable(
-            "fileTree/{owner}/{repo}/{*path}",
+            "fileTree?owner={owner}&repo={repo}&path={path}",
             arguments = listOf(
                 navArgument("owner") { type = NavType.StringType },
                 navArgument("repo") { type = NavType.StringType },
-                navArgument("path") { type = NavType.StringType }
+                navArgument("path") { type = NavType.StringType; defaultValue = "" }
             )
-        ) {
-            backStackEntry ->
+        ) { backStackEntry ->
             val owner = backStackEntry.arguments?.getString("owner")!!
             val repo = backStackEntry.arguments?.getString("repo")!!
             val path = backStackEntry.arguments?.getString("path") ?: ""
@@ -80,22 +80,21 @@ fun AppNavigation(tokenManager: TokenManager) {
                 repo = repo,
                 currentPath = path,
                 onNavigateToSubPath = { subPath ->
-                    navController.navigate("fileTree/$owner/$repo/$subPath")
+                    navController.navigate("fileTree?owner=$owner&repo=$repo&path=$subPath")
                 },
-                onFileClick = { filePath, fileName ->
-                    navController.navigate("editFile/$owner/$repo/$filePath?fileName=$fileName")
+                onFileClick = { filePath, _ ->
+                    navController.navigate("editFile?owner=$owner&repo=$repo&path=$filePath")
                 }
             )
         }
         composable(
-            "editFile/{owner}/{repo}/{*path}",
+            "editFile?owner={owner}&repo={repo}&path={path}",
             arguments = listOf(
                 navArgument("owner") { type = NavType.StringType },
                 navArgument("repo") { type = NavType.StringType },
                 navArgument("path") { type = NavType.StringType }
             )
-        ) {
-            backStackEntry ->
+        ) { backStackEntry ->
             val owner = backStackEntry.arguments?.getString("owner")!!
             val repo = backStackEntry.arguments?.getString("repo")!!
             val path = backStackEntry.arguments?.getString("path")!!
