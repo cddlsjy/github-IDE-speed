@@ -18,40 +18,41 @@ interface GitHubApi {
         @Query("page") page: Int = 1
     ): List<Repository>
 
-    @GET("repos/{owner}/{repo}/contents/{*path}")
+    // 修改 1：将 {*path} 改为 {path}，并设置 encoded = true
+    @GET("repos/{owner}/{repo}/contents/{path}")
     suspend fun getContents(
         @Header("Authorization") auth: String,
         @Path("owner") owner: String,
         @Path("repo") repo: String,
-        @Path("path") path: String
-    ): List<ContentItem>  // 目录时返回数组，文件时返回单个对象（需特殊处理）
+        @Path(value = "path", encoded = true) path: String
+    ): List<ContentItem>
 
-    // 获取单个文件内容（含 content base64）
-    @GET("repos/{owner}/{repo}/contents/{*path}")
+    // 修改 2：获取单个文件内容同样修正
+    @GET("repos/{owner}/{repo}/contents/{path}")
     suspend fun getFileContent(
         @Header("Authorization") auth: String,
         @Path("owner") owner: String,
         @Path("repo") repo: String,
-        @Path("path") path: String
+        @Path(value = "path", encoded = true) path: String
     ): ContentItem
 
-    // 创建/更新文件
-    @PUT("repos/{owner}/{repo}/contents/{*path}")
+    // 修改 3：创建/更新文件
+    @PUT("repos/{owner}/{repo}/contents/{path}")
     suspend fun createOrUpdateFile(
         @Header("Authorization") auth: String,
         @Path("owner") owner: String,
         @Path("repo") repo: String,
-        @Path("path") path: String,
+        @Path(value = "path", encoded = true) path: String,
         @Body body: CommitBody
     ): Any
 
-    // 删除文件
-    @DELETE("repos/{owner}/{repo}/contents/{*path}")
+    // 修改 4：删除文件
+    @DELETE("repos/{owner}/{repo}/contents/{path}")
     suspend fun deleteFile(
         @Header("Authorization") auth: String,
         @Path("owner") owner: String,
         @Path("repo") repo: String,
-        @Path("path") path: String,
+        @Path(value = "path", encoded = true) path: String,
         @Query("message") message: String,
         @Query("sha") sha: String
     ): Any
