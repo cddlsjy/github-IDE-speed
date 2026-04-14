@@ -1,3 +1,5 @@
+package com.example.githubfileexplorer.api
+
 import retrofit2.http.*
 import com.example.githubfileexplorer.model.User
 import com.example.githubfileexplorer.model.Repository

@@ -1,3 +1,5 @@
+package com.example.githubfileexplorer.utils
+
 object FileTypeHelper {
     private val textExtensions = setOf(
         "txt", "md", "kt", "java", "xml", "json", "gradle", "properties",

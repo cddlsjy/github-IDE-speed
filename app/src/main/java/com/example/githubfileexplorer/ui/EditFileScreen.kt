@@ -1,3 +1,5 @@
+package com.example.githubfileexplorer.ui
+
 import android.util.Base64
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -12,7 +14,10 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.DriveFileRenameOutline
 import com.example.githubfileexplorer.viewmodel.EditFileViewModel
+import com.example.githubfileexplorer.viewmodel.EditFileViewModelFactory
+import androidx.compose.material3.ExperimentalMaterial3Api
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditFileScreen(
     token: String,

@@ -1,3 +1,5 @@
+package com.example.githubfileexplorer.model
+
 data class CommitBody(
     val message: String,
     val content: String,   // base64 encoded new content

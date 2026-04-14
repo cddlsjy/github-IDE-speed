@@ -1,3 +1,5 @@
+package com.example.githubfileexplorer.viewmodel
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow

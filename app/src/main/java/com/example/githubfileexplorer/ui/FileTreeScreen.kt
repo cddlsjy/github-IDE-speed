@@ -1,3 +1,5 @@
+package com.example.githubfileexplorer.ui
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,7 +16,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.githubfileexplorer.model.ContentItem
 import com.example.githubfileexplorer.viewmodel.FileTreeViewModel
+import com.example.githubfileexplorer.viewmodel.FileTreeViewModelFactory
+import androidx.compose.material3.ExperimentalMaterial3Api
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FileTreeScreen(
     token: String,

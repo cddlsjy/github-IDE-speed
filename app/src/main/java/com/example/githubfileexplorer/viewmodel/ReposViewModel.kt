@@ -1,3 +1,5 @@
+package com.example.githubfileexplorer.viewmodel
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,5 +33,11 @@ class ReposViewModel(
                 _uiState.value = UiState.Error(e.message ?: "Unknown error")
             }
         }
+    }
+}
+
+class ReposViewModelFactory(private val token: String) : androidx.lifecycle.ViewModelProvider.Factory {
+    override fun <T : androidx.lifecycle.ViewModel> create(modelClass: Class<T>): T {
+        return ReposViewModel(token) as T
     }
 }

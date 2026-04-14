@@ -1,3 +1,5 @@
+package com.example.githubfileexplorer.network
+
 import okhttp3.Interceptor
 import okhttp3.Response
 
